@@ -46,5 +46,13 @@
     <string name="str_times_breathe">times done breathing exercise</string>
     <string name="str_min_breathe">minutes done breathing exercise</string>
     <string name="str_motivate">You are doing great. Go ahead!!</string>
+    <string name="breathing_desc">Breathing is the greatest pleasure in life.</string>
+
+    <string name="str_start">Start</string>
+    <string name="str_end">Stop</string>
+    <string-array name="minutes">
+        <item>20:00 minutes</item>
+        <item>10:00 minutes</item>
+    </string-array>
 
 </resources>

@@ -52,9 +52,11 @@ class DiscoverFragment : Fragment() {
         }
 
         binding.discoverfragMeditationexcercise.setOnClickListener{
-            val text: String = binding.guidedMeditation.getText().toString()
-            val bitmap = (binding.menuGuidedmeditation.getDrawable() as BitmapDrawable).bitmap
-            callIntent(text,bitmap)
+//            val text: String = binding.guidedMeditation.getText().toString()
+//            val bitmap = (binding.menuGuidedmeditation.getDrawable() as BitmapDrawable).bitmap
+//            callIntent(text,bitmap)
+            val intent=Intent(activity, Mediatationbreathing::class.java)
+            startActivity(intent)
         }
 
 

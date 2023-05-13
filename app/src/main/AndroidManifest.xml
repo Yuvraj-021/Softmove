@@ -41,6 +41,9 @@
             android:name=".Excercises_screen"
             android:exported="false" />
         <activity
+            android:name=".ExerciseDemo"
+            android:exported="false" />
+        <activity
             android:name=".Splashscreen"
             android:exported="false" />
         <activity

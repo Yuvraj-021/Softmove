@@ -3,6 +3,7 @@ package com.example.softmove
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.softmove.Movenetmodel.poseestimation.PoseDetection
 import com.example.softmove.databinding.ActivityExcerciseDescriptionBinding
@@ -32,8 +33,9 @@ class Excercise_description : AppCompatActivity() {
         binding.setsDesc.text= "Each set of "+exerciseReps.toString()+" Reps"
 
         binding.startbutton.setOnClickListener{
-            val ins= Intent(applicationContext, PoseDetection::class.java)
+            val ins= Intent(applicationContext, ExerciseDemo::class.java)
             ins.putExtra("EXERCISE_NAME",exerciseName)
+            Log.i("EXERCISE_NAME :::: ", exerciseName.toString())
             ins.putExtra("EXERCISE_TYPE",exerciseType)
             startActivity(ins)
         }

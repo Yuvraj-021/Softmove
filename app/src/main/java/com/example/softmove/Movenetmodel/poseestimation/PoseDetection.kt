@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.os.Process
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.QUEUE_ADD
@@ -28,7 +29,7 @@ import org.tensorflow.lite.examples.poseestimation.data.PoseResult
 import org.tensorflow.lite.examples.poseestimation.ml.*
 import java.util.*
 
-class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener {
+class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener {
     companion object {
         private const val FRAGMENT_DIALOG = "dialog"
     }
@@ -43,7 +44,8 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener {
     /** Default device is CPU */
     private var device = Device.CPU
 
-    private var tts: TextToSpeech? = null
+    private lateinit var tts: TextToSpeech
+    private var isDelayInProgress = false
 
     public lateinit var exerciseType:String
     public lateinit var exerciseName:String
@@ -176,7 +178,8 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener {
                                 }else if (pose == "Left Leg Stretching"){
                                     tvClassificationValue1.text = cameraSource?.result?.leftLegStretchingResult.toString()
                                 }
-//                            poseResult(tvClassificationValue1.text.toString())
+                                // TODO: Audio Feedback for result
+                                poseResult(tvClassificationValue1.text.toString())
                             }
                         }
 
@@ -192,14 +195,32 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+    override fun onUtteranceCompleted(utteranceId: String?) {
+        if (utteranceId == "1" && !isDelayInProgress) {
+            isDelayInProgress = true
+            tts.playSilentUtterance(10000, TextToSpeech.QUEUE_ADD, null)
+//            val text = "This is a delayed message."
+            tts.speak("", TextToSpeech.QUEUE_ADD, null, "2")
+        } else if (utteranceId == "2") {
+            isDelayInProgress = false
+        }
+    }
+
     private fun convertPoseLabels(pair: Pair<String, Float>?): String {
         if (pair == null) return "empty"
         return "${pair.first} (${String.format("%.2f", pair.second)})"
     }
 
+    // TODO: Audio Feedback for result
     private fun poseResult (res : String) {
-        tts!!.speak(res, TextToSpeech.QUEUE_FLUSH, null,"")
-        tts!!.playSilentUtterance(2000, QUEUE_ADD, null);
+        tts = TextToSpeech(applicationContext, TextToSpeech.OnInitListener {
+            if(it == TextToSpeech.SUCCESS) {
+                tts.language = Locale.US
+                tts.setSpeechRate(0.8F)
+                tts.speak(res.toString(), TextToSpeech.QUEUE_ADD, null, "1")
+            }
+        })
+
     }
 
     private fun isPoseClassifier() {

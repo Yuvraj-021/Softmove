@@ -2,6 +2,7 @@ package com.example.softmove
 
 import android.os.Bundle
 import android.content.Intent
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,10 @@ import com.example.softmove.databinding.ActivityExcercisesScreenBinding
 import pl.droidsonroids.gif.GifDrawable
 import pl.droidsonroids.gif.GifImageView
 import java.io.InputStream
+import java.util.*
 
 class ExerciseDemo : AppCompatActivity() {
-
+    private lateinit var tts: TextToSpeech
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_demo)
@@ -24,6 +26,14 @@ class ExerciseDemo : AppCompatActivity() {
         val exerciseType = intent.getStringExtra("EXERCISE_TYPE")
 
         var gifInputStream: InputStream = applicationContext.assets.open("tree_pose.gif")
+
+        tts = TextToSpeech(applicationContext, TextToSpeech.OnInitListener {
+            if(it == TextToSpeech.SUCCESS) {
+                tts.language = Locale.US
+                tts.setSpeechRate(0.8F)
+                tts.speak("Start doing" + exercise_name +"exercise as shown in demo.", TextToSpeech.QUEUE_ADD, null)
+            }
+        })
 
         when (exercise_name) {
             "Vrikshasana" -> {

@@ -97,7 +97,6 @@ class CameraSource(
     private lateinit var left_knee_points : PointF
     private lateinit var left_ankle_points : PointF
 
-
     suspend fun initCamera() {
         camera = openCamera(cameraManager, cameraId)
         imageReader =

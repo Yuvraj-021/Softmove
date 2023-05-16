@@ -1,11 +1,13 @@
 package com.example.softmove.Views
 
+import android.animation.AnimatorInflater
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.softmove.MainActivity
+import com.example.softmove.R
 import com.example.softmove.databinding.ActivityLoginBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +28,11 @@ class Login : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        // card animation
+        val animator = AnimatorInflater.loadAnimator(this, R.animator.topanime)
+        animator.setTarget(binding.signImg)
+        animator.start()
+
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
@@ -41,6 +48,8 @@ class Login : AppCompatActivity() {
         }
 
     }
+
+
 
     fun validateCredentials(emailID:String,password:String) {
         auth = FirebaseAuth.getInstance()

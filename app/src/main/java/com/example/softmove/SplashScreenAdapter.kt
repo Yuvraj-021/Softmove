@@ -26,8 +26,8 @@ class SplashScreenAdapter(private val splashitems: List<Splashscreenitems>) : Ca
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SplashViewHolder {
-        val binding = SliderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val view = binding.root
+        sliderItemBinding = SliderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = sliderItemBinding.root
         return SplashViewHolder(view)
 
     }

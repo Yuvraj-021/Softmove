@@ -37,4 +37,11 @@ class PoseResult {
         set(value) {
             field = value
         }
+    var calfStretchingResult : String = ""
+        get() {
+            return  field
+        }
+        set(value) {
+            field = value
+        }
 }

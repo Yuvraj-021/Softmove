@@ -48,6 +48,14 @@
     <string name="str_motivate">You are doing great. Go ahead!!</string>
     <string name="breathing_desc">Breathing is the greatest pleasure in life.</string>
 
+    <string-array name="motivating_quotes">
+        <item>"Success is not final, failure is not fatal: It is the courage to continue that counts." - Winston Churchill</item>
+        <item>"The secret of getting ahead is getting started." - Mark Twain</item>
+        <item>"Believe you can and you're halfway there." - Theodore Roosevelt</item>
+        <!-- Add more quotes here -->
+    </string-array>
+
+
     <string name="str_start">Start</string>
     <string name="str_end">Stop</string>
     <string-array name="minutes">

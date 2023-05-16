@@ -63,6 +63,9 @@ class ExerciseDemo : AppCompatActivity() {
             "Left Leg Stretching" -> {
                 gifInputStream = applicationContext.assets.open("left_leg_stretching.gif")
             }
+            "Calf Stretching" -> {
+                gifInputStream = applicationContext.assets.open("calfStretch.gif")
+            }
         }
 
         val gifDrawable = GifDrawable(gifInputStream)

@@ -264,8 +264,8 @@ class CameraSource(
      * LEG STRETCHING EXERCISE
      * */
     private fun legStretching(person: Person){
-        val angle1 : Int
-        val angle2 : Int
+        var angle1 : Int = 0
+        var angle2 : Int = 0
 
         // Right Leg keypoints
         right_hip_points = person.keyPoints[12].coordinate
@@ -277,55 +277,75 @@ class CameraSource(
         left_knee_points = person.keyPoints[13].coordinate
         left_ankle_points = person.keyPoints[15].coordinate
 
-        angle1 = calculate_angle(right_hip_points, right_knee_points, right_ankle_points).roundToInt()
-        angle2 = calculate_angle(left_hip_points, left_knee_points, left_ankle_points).roundToInt()
+        // Right Leg Keypoint's score
+        if (person.keyPoints[12].score > 0.60 && person.keyPoints[14].score > 0.60 && person.keyPoints[16].score > 0.60){
+            angle1 = calculate_angle(right_hip_points, right_knee_points, right_ankle_points).roundToInt()
+        }
+
+        // Left Arm Keypoint's score
+        if (person.keyPoints[11].score > 0.60 && person.keyPoints[13].score > 0.60 && person.keyPoints[15].score > 0.60){
+            angle2 = calculate_angle(left_hip_points, left_knee_points, left_ankle_points).roundToInt()
+        }
 
         // RIGHT Leg EXERCISE
         if (angle1 >= 110){
             result.rightLegStretchingResult ="Right Leg Stretched."
-        } else{
+        } else if (angle1 > 10){
             result.rightLegStretchingResult ="Right Leg Folded."
         }
 
         // LEFT Leg EXERCISE
         if (angle2 >= 110){
             result.leftLegStretchingResult ="Left Leg Stretched."
-        } else{
+        } else if (angle2 > 10){
             result.leftLegStretchingResult ="Right Leg Folded."
         }
+
+        // CALF Stretching Exercise
+        if (angle1 <= 80 && angle2 >= 110){
+            result.leftLegStretchingResult ="Legs Stretched."
+        }
+
     }
 
     /**
      * HAND STRETCHING EXERCISE
      * */
     private fun handStretching(person : Person){
-        val angle1 : Int
-        val angle2 : Int
+        var angle1 : Int = 0
+        var angle2 : Int = 0
 
         // Right ARM keypoints
         right_shoulder_points = person.keyPoints[6].coordinate
         right_elbow_points = person.keyPoints[8].coordinate
         right_wrist_points = person.keyPoints[10].coordinate
 
-        // Left ARM Keypoints
+        // Left ARM Keypoint's
         left_shoulder_points = person.keyPoints[5].coordinate
         left_elbow_points = person.keyPoints[7].coordinate
         left_wrist_points = person.keyPoints[9].coordinate
 
-        angle1 = calculate_angle(right_shoulder_points, right_elbow_points, right_wrist_points).roundToInt()
-        angle2 = calculate_angle(left_shoulder_points, left_elbow_points, left_wrist_points).roundToInt()
+        // Right Arm Keypoint's score
+        if (person.keyPoints[6].score > 0.60 && person.keyPoints[8].score > 0.60 && person.keyPoints[10].score > 0.60){
+            angle1 = calculate_angle(right_shoulder_points, right_elbow_points, right_wrist_points).roundToInt()
+        }
+
+        // Left Arm Keypoint's score
+        if (person.keyPoints[5].score > 0.60 && person.keyPoints[7].score > 0.60 && person.keyPoints[9].score > 0.60){
+            angle2 = calculate_angle(left_shoulder_points, left_elbow_points, left_wrist_points).roundToInt()
+        }
 
         // RIGHT ARM EXERCISE
         if (angle1 >= 110){
             result.rightHandStretchingResult ="Right Arm Stretched."
-        } else{
+        } else if (angle1 > 10){
             result.rightHandStretchingResult ="Right Arm Folded."
         }
 
         // LEFT ARM EXERCISE
         if (angle2 >= 110){
             result.leftHandStretchingResult ="Left Arm Stretched."
-       } else{
+       } else if (angle1 > 10){
             result.leftHandStretchingResult ="Left Arm Folded."
         }
     }

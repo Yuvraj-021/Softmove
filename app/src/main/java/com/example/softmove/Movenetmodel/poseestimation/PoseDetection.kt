@@ -152,15 +152,15 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
                                         convertPoseLabels(if (it.isNotEmpty()) it[0] else null)
                                     )
                                     if (result == "- warrior (1.00)" && result == tvClassificationValue1.text){
-                                        poseResult("Warrior pose detected.");
+//                                        poseResult("Warrior pose detected.");
                                     }else if (result == "- cobra (1.00)" && result == tvClassificationValue1.text){
-                                        poseResult("Cobra pose detected.");
+//                                        poseResult("Cobra pose detected.");
                                     }else if(result == "- chair (1.00)" && result == tvClassificationValue1.text){
-                                        poseResult("Chair pose detected");
+//                                        poseResult("Chair pose detected");
                                     }else if (result == "- tree (1.00)" && result == tvClassificationValue1.text){
-                                        poseResult("Tree pose detected");
+//                                        poseResult("Tree pose detected");
                                     }else if (result == "- dog (1.00)" && result == tvClassificationValue1.text){
-                                        poseResult("Dog pose detected")
+//                                        poseResult("Dog pose detected")
                                     }
                                 }
                             }
@@ -175,11 +175,12 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
                                     tvClassificationValue1.text = cameraSource?.result?.leftHandStretchingResult.toString()
                                 }else if (pose == "Right Leg Stretching"){
                                     tvClassificationValue1.text =   cameraSource?.result?.rightLegStretchingResult.toString()
-                                }else if (pose == "Left Leg Stretching"){
+                                }else if (pose == "Left Leg Stretching") {
                                     tvClassificationValue1.text = cameraSource?.result?.leftLegStretchingResult.toString()
+                                }else if (pose ==  "Calf Stretching"){
+                                    tvClassificationValue1.text = cameraSource?.result?.calfStretchingResult.toString()
                                 }
-                                // TODO: Audio Feedback for result
-                                poseResult(tvClassificationValue1.text.toString())
+
                             }
                         }
 
@@ -199,7 +200,6 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
         if (utteranceId == "1" && !isDelayInProgress) {
             isDelayInProgress = true
             tts.playSilentUtterance(10000, TextToSpeech.QUEUE_ADD, null)
-//            val text = "This is a delayed message."
             tts.speak("", TextToSpeech.QUEUE_ADD, null, "2")
         } else if (utteranceId == "2") {
             isDelayInProgress = false

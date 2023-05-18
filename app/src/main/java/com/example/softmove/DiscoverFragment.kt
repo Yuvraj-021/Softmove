@@ -39,17 +39,17 @@ class DiscoverFragment : Fragment() {
             callIntent(text,bitmap)
         }
 
-        binding.discoverfragCyclingexcercise.setOnClickListener{
-            val text: String = binding.cycling.getText().toString()
-            val bitmap = (binding.menuCycling.getDrawable() as BitmapDrawable).bitmap
-            callIntent(text,bitmap)
-        }
+//        binding.discoverfragCyclingexcercise.setOnClickListener{
+//            val text: String = binding.cycling.getText().toString()
+//            val bitmap = (binding.menuCycling.getDrawable() as BitmapDrawable).bitmap
+//            callIntent(text,bitmap)
+//        }
 
-        binding.discoverfragRunningexcercise.setOnClickListener{
-            val text: String = binding.running.getText().toString()
-            val bitmap = (binding.menuRunning.getDrawable() as BitmapDrawable).bitmap
-            callIntent(text,bitmap)
-        }
+//        binding.discoverfragRunningexcercise.setOnClickListener{
+//            val text: String = binding.running.getText().toString()
+//            val bitmap = (binding.menuRunning.getDrawable() as BitmapDrawable).bitmap
+//            callIntent(text,bitmap)
+//        }
 
         binding.discoverfragMeditationexcercise.setOnClickListener{
 //            val text: String = binding.guidedMeditation.getText().toString()

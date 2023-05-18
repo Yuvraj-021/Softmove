@@ -3,8 +3,11 @@ package com.example.softmove.Movenetmodel.poseestimation
 import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Process
 import android.speech.tts.TextToSpeech
@@ -19,8 +22,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.softmove.Exercise_complete
 import com.example.softmove.R
+import com.example.softmove.ViewModel.ExercisesViewModel
+import com.example.softmove.ViewModel.HomeViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tensorflow.lite.examples.poseestimation.camera.CameraSource
@@ -28,6 +37,7 @@ import org.tensorflow.lite.examples.poseestimation.data.Device
 import org.tensorflow.lite.examples.poseestimation.data.PoseResult
 import org.tensorflow.lite.examples.poseestimation.ml.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener {
     companion object {
@@ -49,6 +59,17 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
 
     public lateinit var exerciseType:String
     public lateinit var exerciseName:String
+    private lateinit var mediaPlayer: MediaPlayer
+    private var startSec = 30L
+
+    private lateinit var revtimer:TextView
+    private var isVoiceEnabled: Boolean = true
+
+    private lateinit var viewModel: ExercisesViewModel
+    lateinit var currentUser: FirebaseUser
+
+    private lateinit var timerTextView: TextView
+    private lateinit var countDownTimer: CountDownTimer
 
     private lateinit var tvClassificationValue1: TextView
     private lateinit var classficationRes : TextView
@@ -87,15 +108,58 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
         setContentView(R.layout.activity_posedetection)
         // keep screen on while app is running
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        supportActionBar?.hide()
         surfaceView = findViewById(R.id.surfaceView)
         classficationRes = findViewById(R.id.result)
         tvClassificationValue1 = findViewById(R.id.tvClassificationValue1)
         swClassification = findViewById(R.id.swPoseClassification)
         vClassificationOption = findViewById(R.id.vClassificationOption)
+        timerTextView=findViewById(R.id.timer)
         swClassification.setOnCheckedChangeListener(setClassificationListener)
+        currentUser = FirebaseAuth.getInstance().currentUser!!
+        val uid = FirebaseAuth.getInstance().uid
+
+        viewModel = ViewModelProvider(this).get(ExercisesViewModel::class.java)
+        viewModel.init(applicationContext, uid!!)
+
 
         exerciseName = intent.getStringExtra("EXERCISE_NAME").toString()
         exerciseType = intent.getStringExtra("EXERCISE_TYPE").toString()
+        val durationMillis: Long = 30_000
+
+        countDownTimer = object : CountDownTimer(durationMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val secondsRemaining = (millisUntilFinished / 1000).toInt()
+                timerTextView.text = secondsRemaining.toString()
+            }
+
+            override fun onFinish() {
+
+                if(exerciseType=="Yoga")
+                {
+                    val finalPoseResult : String = tvClassificationValue1.text.toString()
+                    var splittedResult : List<String> = finalPoseResult.split(" ")
+                    val accuracy : Int =  (splittedResult[2].toFloat() / 100).toInt()
+                    speak("Thank you for doing Exercise with me. You have done the exercise " + accuracy.toString() + "% correctly.")
+                    viewModel.updateYogaSec(30)
+                    viewModel.updateYogaCount()
+                }
+                else{
+                    speak("Thank you for doing Exercise with me. I hope your feeling great right now after doing this Exercise")
+                    viewModel.updateStretchingSec(30)
+                    viewModel.updateStretchingCount()
+                }
+
+
+                val intent=Intent(applicationContext, Exercise_complete::class.java )
+                intent.putExtra("EXERCISE_NAME",exerciseName)
+                intent.putExtra("EXERCISE_TYPE",exerciseType)
+                startActivity(intent)
+            }
+
+        }
+
+
 
         if (!isCameraPermissionGranted()) {
             requestPermission()
@@ -107,6 +171,8 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
         super.onStart()
         openCamera()
     }
+
+
 
     override fun onResume() {
         cameraSource?.resume()
@@ -128,9 +194,38 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
         ) == PackageManager.PERMISSION_GRANTED
     }
 
+
+//    private fun createTimer(): CountDownTimer {
+//        return object: CountDownTimer(startSec * 60000, 1000) {
+//            var sec = 0L
+//            override fun onTick(ms: Long) {
+//                //minutes = TimeUnit.MILLISECONDS.toMinutes(ms) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(ms))
+//                sec = TimeUnit.MILLISECONDS.toSeconds(ms) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(ms))
+//
+//                revtimer.text = "${sec.toString().padStart(3, '0')}"
+//            }
+//
+//            override fun onFinish() {
+//                speak("Thank you for doing Exercise with me. I hope your feeling great right now after doing this Exercise")
+//
+//            }
+//        }
+//    }
+
+    fun speak(text: String) {
+        tts = TextToSpeech(applicationContext, TextToSpeech.OnInitListener {
+            if(isVoiceEnabled && it == TextToSpeech.SUCCESS) {
+                tts.language = Locale.US
+                tts.setSpeechRate(0.8F)
+                tts.speak(text, TextToSpeech.QUEUE_ADD, null)
+            }
+        })
+    }
+
     // open camera
     private fun openCamera() {
         if (isCameraPermissionGranted()) {
+            startTimer()
             if (cameraSource == null) {
                 cameraSource =
                     CameraSource(surfaceView, object : CameraSource.CameraSourceListener {
@@ -152,6 +247,7 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
                                         convertPoseLabels(if (it.isNotEmpty()) it[0] else null)
                                     )
                                     if (result == "- warrior (1.00)" && result == tvClassificationValue1.text){
+
 //                                        poseResult("Warrior pose detected.");
                                     }else if (result == "- cobra (1.00)" && result == tvClassificationValue1.text){
 //                                        poseResult("Cobra pose detected.");
@@ -206,9 +302,17 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
         }
     }
 
+    private fun startTimer() {
+        countDownTimer.start()
+    }
+
+    private fun cancelTimer() {
+        countDownTimer.cancel()
+    }
+
     private fun convertPoseLabels(pair: Pair<String, Float>?): String {
         if (pair == null) return "empty"
-        return "${pair.first} (${String.format("%.2f", pair.second)})"
+        return "${pair.first} ${String.format("%.2f", pair.second)}"
     }
 
     // TODO: Audio Feedback for result

@@ -98,6 +98,9 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.5.0")
 
+    //charts
+    implementation 'org.jfree:jfreechart:1.5.3'
+
     // Lifecycle Components
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")

@@ -35,8 +35,8 @@ class ExerciseAdapter(private val exercises: List<Exercises>) :
         with(holder){
             with(exercises[position]){
                 binding.ExcercisecardSrno.text = (absoluteAdapterPosition + 1).toString()
-                binding.ExcercisecardName.text = this.Excercise_name
-                binding.ExcercisecardTime.text = this.Excercise_time
+                binding.ExcercisecardName.text = this.Exercise_name
+                binding.ExcercisecardTime.text = this.Exercise_time
 
                 itemView.setOnClickListener {
                     onItemClickListener?.let { listener ->

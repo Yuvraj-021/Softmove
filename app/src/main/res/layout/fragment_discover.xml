@@ -59,37 +59,37 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/discoverfragRunningexcercise"
-                android:layout_height="160dp"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                >
-                <ImageView
-                    android:id="@+id/menu_running"
-                    android:layout_height="200dp"
-                    android:layout_width="match_parent"
-                    android:src="@drawable/menus_running"
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/discoverfragRunningexcercise"-->
+<!--                android:layout_height="160dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                >-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/menu_running"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:src="@drawable/menus_running"-->
 
-                    />
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/running"
-                    android:layout_width="33dp"
-                    android:layout_height="0dp"
-                    android:layout_alignLeft="@+id/menu_running"
-                    android:layout_alignTop="@+id/menu_running"
-                    android:layout_alignRight="@+id/menu_running"
-                    android:layout_alignBottom="@+id/menu_running"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:gravity="center"
-                    android:text="Running"
-                    android:textColor="#FFFFFF"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/running"-->
+<!--                    android:layout_width="33dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_alignLeft="@+id/menu_running"-->
+<!--                    android:layout_alignTop="@+id/menu_running"-->
+<!--                    android:layout_alignRight="@+id/menu_running"-->
+<!--                    android:layout_alignBottom="@+id/menu_running"-->
+<!--                    android:layout_marginStart="1dp"-->
+<!--                    android:layout_marginTop="1dp"-->
+<!--                    android:layout_marginEnd="1dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Running"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="30dp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </RelativeLayout>-->
 
             <RelativeLayout
                 android:id="@+id/discoverfragStrechingexcercise"
@@ -123,37 +123,37 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/discoverfragCyclingexcercise"
-                android:layout_height="160dp"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                >
-                <ImageView
-                    android:id="@+id/menu_cycling"
-                    android:layout_height="200dp"
-                    android:layout_width="match_parent"
-                    android:src="@drawable/menus_cycling"
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/discoverfragCyclingexcercise"-->
+<!--                android:layout_height="160dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                >-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/menu_cycling"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:src="@drawable/menus_cycling"-->
 
-                    />
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/cycling"
-                    android:layout_width="33dp"
-                    android:layout_height="0dp"
-                    android:layout_alignLeft="@+id/menu_cycling"
-                    android:layout_alignTop="@+id/menu_cycling"
-                    android:layout_alignRight="@+id/menu_cycling"
-                    android:layout_alignBottom="@+id/menu_cycling"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:gravity="center"
-                    android:text="Cycling"
-                    android:textColor="#FFFFFF"
-                    android:textSize="30dp"
-                    android:textStyle="bold"/>
-            </RelativeLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/cycling"-->
+<!--                    android:layout_width="33dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_alignLeft="@+id/menu_cycling"-->
+<!--                    android:layout_alignTop="@+id/menu_cycling"-->
+<!--                    android:layout_alignRight="@+id/menu_cycling"-->
+<!--                    android:layout_alignBottom="@+id/menu_cycling"-->
+<!--                    android:layout_marginStart="1dp"-->
+<!--                    android:layout_marginTop="1dp"-->
+<!--                    android:layout_marginEnd="1dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Cycling"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="30dp"-->
+<!--                    android:textStyle="bold"/>-->
+<!--            </RelativeLayout>-->
 
             <RelativeLayout
                 android:id="@+id/discoverfragMeditationexcercise"
@@ -165,7 +165,7 @@
                     android:id="@+id/menu_guidedmeditation"
                     android:layout_height="200dp"
                     android:layout_width="match_parent"
-                    android:src="@drawable/menus_cycling"
+                    android:src="@drawable/menus_guidedmeditation"
 
                     />
 

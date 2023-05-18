@@ -42,7 +42,6 @@ class Mediatationbreathing : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMeditationBreathingBinding.inflate(layoutInflater)
-        //reportbinding = ReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         createNotificationChannel()

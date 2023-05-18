@@ -45,6 +45,15 @@
     <string name="str_min_meditate">minutes meditated</string>
     <string name="str_times_breathe">times done breathing exercise</string>
     <string name="str_min_breathe">minutes done breathing exercise</string>
+
+    <string name="str_min_Yoga">Seconds done yoga</string>
+    <string name="str_times_Yoga">times done Yoga exercise</string>
+    <string name="str_times_Stretching">times done stretching exercise</string>
+    <string name="str_min_stretching">Seconds done stretching exercise</string>
+
+    <string name="about_us">Welcome to Softmove, your ultimate solution for addressing body stiffness and tracking your progress towards a healthier, more flexible body. We are an innovative AI-powered application dedicated to helping individuals overcome the challenges of stiffness, improve their flexibility, and maintain a record of their wellness journey.
+At Softmove, we understand the importance of a supple body in achieving overall well-being. Whether you are an athlete, a fitness enthusiast, or someone seeking relief from daily stiffness, our goal is to empower you with the tools and guidance to enhance your flexibility and lead a more active, pain-free life.</string>
+
     <string name="str_motivate">You are doing great. Go ahead!!</string>
     <string name="breathing_desc">Breathing is the greatest pleasure in life.</string>
 

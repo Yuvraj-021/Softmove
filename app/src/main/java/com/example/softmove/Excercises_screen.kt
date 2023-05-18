@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.io.ByteArrayOutputStream
 
 
 class Excercises_screen : AppCompatActivity() {
@@ -53,13 +54,18 @@ class Excercises_screen : AppCompatActivity() {
             binding.excercisesScreenExcerciseDesc.text= getApplicationContext().getResources().getString(R.string.yoga_desc);
             excercisetype="Yoga"
         }
-        else if(binding.excercisesScreenExcerciseName.text=="Streching"){
+        else if(binding.excercisesScreenExcerciseName.text=="Stretching"){
             binding.excercisesScreenExcerciseDesc.text=getApplicationContext().getResources().getString(R.string.Streching_desc);
-            excercisetype="Streching"
+            excercisetype="Stretching"
         }
         else{
             binding.excercisesScreenExcerciseDesc.text="NULL"
             excercisetype="NULL"
+        }
+
+        binding.exercisesBackbtn.setOnClickListener {
+           val intent=Intent(this,MainActivity::class.java)
+            startActivity(intent)
         }
 
         val database = Firebase.database.reference
@@ -83,11 +89,9 @@ class Excercises_screen : AppCompatActivity() {
                 adapter.setOnItemClickListener { exercisesList ->
                     // handle the click event here
                     val i = Intent(applicationContext, Excercise_description::class.java)
-                    i.putExtra("EXERCISE_NAME", exercisesList.Excercise_name)
-                    i.putExtra("EXERCISE_TIME", exercisesList.Excercise_time)
-                    i.putExtra("EXERCISE_REPS", exercisesList.Reps_each_set)
-                    i.putExtra("EXERCISE_SETS", exercisesList.Sets)
-                    i.putExtra("EXERCISE_ANIMATION", exercisesList.Excercise_animation)
+
+                    i.putExtra("EXERCISE_NAME", exercisesList.Exercise_name)
+                    i.putExtra("EXERCISE_TIME", exercisesList.Exercise_time)
                     i.putExtra("EXERCISE_TYPE",excercisetype)
                     // pass other exercise data as needed
                     startActivity(i)

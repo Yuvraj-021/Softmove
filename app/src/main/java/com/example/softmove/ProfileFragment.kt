@@ -25,6 +25,15 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.btnAbout.setOnClickListener{
+            val intent=Intent(requireContext(), About::class.java)
+            startActivity(intent)
+        }
+        binding.btnChangePass.setOnClickListener {
+            val intent=Intent(requireContext(), Forgotpassword::class.java)
+            startActivity(intent)
+        }
+
         return binding.root;
     }
 

@@ -287,6 +287,9 @@ class CameraSource(
             angle2 = calculate_angle(left_hip_points, left_knee_points, left_ankle_points).roundToInt()
         }
 
+//        angle1 = calculate_angle(right_hip_points, right_knee_points, right_ankle_points).roundToInt()
+//        angle2 = calculate_angle(left_hip_points, left_knee_points, left_ankle_points).roundToInt()
+
         // RIGHT Leg EXERCISE
         if (angle1 >= 110){
             result.rightLegStretchingResult ="Right Leg Stretched."
@@ -367,7 +370,7 @@ class CameraSource(
                         classifier?.run {
                             classificationResult = classify(persons[0])
                         }
-                    }else if (result.exerciseType == "Streching"){
+                    }else if (result.exerciseType == "Stretching"){
                         handStretching(persons[0])
                         legStretching(persons[0])
                     }

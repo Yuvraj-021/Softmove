@@ -260,7 +260,7 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
                                     }
                                 }
                             }
-                            else if (cameraSource?.result?.exerciseType.toString() == "Streching"){
+                            else if (cameraSource?.result?.exerciseType.toString() == "Stretching"){
                                 // Pose Detection Result
                                 var pose : String = exerciseName
 

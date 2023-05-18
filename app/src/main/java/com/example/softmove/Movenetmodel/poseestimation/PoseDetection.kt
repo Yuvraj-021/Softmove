@@ -139,7 +139,7 @@ class PoseDetection : AppCompatActivity(), TextToSpeech.OnInitListener, TextToSp
                 {
                     val finalPoseResult : String = tvClassificationValue1.text.toString()
                     var splittedResult : List<String> = finalPoseResult.split(" ")
-                    val accuracy : Int =  (splittedResult[2].toFloat() / 100).toInt()
+                    val accuracy : Int =  (splittedResult[2].toFloat() * 100).toInt()
                     speak("Thank you for doing Exercise with me. You have done the exercise " + accuracy.toString() + "% correctly.")
                     viewModel.updateYogaSec(30)
                     viewModel.updateYogaCount()
